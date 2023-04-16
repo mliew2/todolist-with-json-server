@@ -19,5 +19,11 @@ export const View = (() => {
         inputEl.value = "";
     };
 
-    return { renderTodos, submitBtnEl, inputEl, clearInput, todolistEl };
+    return {
+        renderTodos,
+        submitBtnEl,
+        inputEl,
+        clearInput,
+        todolistEl
+    };
 })();
