@@ -20,7 +20,7 @@ export const APIs = (() => {
         return fetch([baseUrl, todoPath].join("/")).then((res) => res.json());
     };
 
-    const updateTodo = (updatedTodo, id) => {
+    const updateTodo = (id, updatedTodo) => {
         return fetch([baseUrl, todoPath, id].join("/"), {
             method: "PUT",
             body: JSON.stringify(updatedTodo),
