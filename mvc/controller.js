@@ -32,21 +32,44 @@ export const Controller = ((view, model) => {
             2. make delete request
             3. update view, remove
         */
-        view.todolistEl.addEventListener("click", (event) => {
-            if (event.target.className === "delete-btn") {
-                const id = event.target.id;
-                console.log("id", typeof id);
-                model.deleteTodo(+id).then((data) => {
-                    state.todos = state.todos.filter((todo) => todo.id !== +id);
-                });
-            }
-        });
+        view.pendinglistEl.addEventListener("click", (event) => deleteLogic(event));
+        view.completedListEl.addEventListener("click", (event) => deleteLogic(event));
     };
+
+    const deleteLogic = (event) => {
+        if (event.target.className === "delete-btn") {
+            const id = event.target.id;
+            console.log("id", id, typeof id);
+            model.deleteTodo(+id).then((data) => {
+                state.todos = state.todos.filter((todo) => todo.id !== +id);
+            });
+        }
+    };
+
+    const handleComplete = () => {
+        view.pendinglistEl.addEventListener("click", (event) => completeLogic(event));
+        view.completedListEl.addEventListener("click", (event) => completeLogic(event));
+    };
+
+    const completeLogic = (event) => {
+        if (event.target.className === "complete-btn") {
+            const id = event.target.id;
+            console.log("id", id, typeof id);
+            let index = state.todos.findIndex((todo) => {
+                return +todo.id === +event.target.id;
+            });
+            state.todos[index].completed = !state.todos[index].completed;
+            model.updateTodo(event.target.id, state.todos[index]).then((todo) => {
+                    state.todos = [...state.todos];
+            });
+        }
+    }
 
     const bootstrap = () => {
         init();
         handleSubmit();
         handleDelete();
+        handleComplete();
         state.subscribe(() => {
             view.renderTodos(state.todos);
         });

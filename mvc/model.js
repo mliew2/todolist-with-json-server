@@ -22,11 +22,12 @@ export const Model = (() => {
             this.#onChange = callback;
         }
     }
-    const { getTodos, createTodo, deleteTodo } = APIs;
+    const { getTodos, createTodo, deleteTodo, updateTodo } = APIs;
     return {
         State,
         getTodos,
         createTodo,
         deleteTodo,
+        updateTodo
     };
 })();
