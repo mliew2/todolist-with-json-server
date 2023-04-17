@@ -25,18 +25,24 @@ export const Controller = ((view, model) => {
         });
     };
 
-    const handleDelete = () => {
+    const handleListButtons = () => {
         //event bubbling
         /* 
             1. get id
             2. make delete request
             3. update view, remove
         */
-        view.pendinglistEl.addEventListener("click", (event) => deleteLogic(event));
-        view.completedListEl.addEventListener("click", (event) => deleteLogic(event));
+        view.pendinglistEl.addEventListener("click", (event) => handleEvents(event));
+        view.completedListEl.addEventListener("click", (event) => handleEvents(event));
     };
 
-    const deleteLogic = (event) => {
+    const handleEvents = (event) => {
+        handleDelete(event);
+        handleComplete(event);
+        handleEdit(event);
+    }
+
+    const handleDelete = (event) => {
         if (event.target.className === "delete-btn") {
             const id = event.target.id;
             console.log("id", id, typeof id);
@@ -46,12 +52,7 @@ export const Controller = ((view, model) => {
         }
     };
 
-    const handleComplete = () => {
-        view.pendinglistEl.addEventListener("click", (event) => completeLogic(event));
-        view.completedListEl.addEventListener("click", (event) => completeLogic(event));
-    };
-
-    const completeLogic = (event) => {
+    const handleComplete = (event) => {
         if (event.target.className === "complete-btn") {
             const id = event.target.id;
             console.log("id", id, typeof id);
@@ -65,16 +66,11 @@ export const Controller = ((view, model) => {
         }
     }
 
-    const handleEdit = () => {
-        view.pendinglistEl.addEventListener("click", (event) => editLogic(event));
-        view.completedListEl.addEventListener("click", (event) => editLogic(event));
-    };
-
-    const editLogic = (event) => {
+    const handleEdit = (event) => {
         if (event.target.className === "edit-btn") {
             const id = event.target.id;
             const [editing, newContent] = view.triggerEdit(id);
-            if (!editing) {
+            if (editing) {
                 let index = state.todos.findIndex((todo) => {
                     return +todo.id === +id;
                 });
@@ -89,9 +85,7 @@ export const Controller = ((view, model) => {
     const bootstrap = () => {
         init();
         handleSubmit();
-        handleDelete();
-        handleComplete();
-        handleEdit();
+        handleListButtons();
         state.subscribe(() => {
             view.renderTodos(state.todos);
         });
