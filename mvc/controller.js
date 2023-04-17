@@ -60,8 +60,29 @@ export const Controller = ((view, model) => {
             });
             state.todos[index].completed = !state.todos[index].completed;
             model.updateTodo(event.target.id, state.todos[index]).then((todo) => {
-                    state.todos = [...state.todos];
+                state.todos = [...state.todos];
             });
+        }
+    }
+
+    const handleEdit = () => {
+        view.pendinglistEl.addEventListener("click", (event) => editLogic(event));
+        view.completedListEl.addEventListener("click", (event) => editLogic(event));
+    };
+
+    const editLogic = (event) => {
+        if (event.target.className === "edit-btn") {
+            const id = event.target.id;
+            const [editing, newContent] = view.triggerEdit(id);
+            if (!editing) {
+                let index = state.todos.findIndex((todo) => {
+                    return +todo.id === +id;
+                });
+                state.todos[index].content = newContent;
+                model.updateTodo(event.target.id, state.todos[index]).then((todo) => {
+                    state.todos = [...state.todos];
+                });
+            }
         }
     }
 
@@ -70,6 +91,7 @@ export const Controller = ((view, model) => {
         handleSubmit();
         handleDelete();
         handleComplete();
+        handleEdit();
         state.subscribe(() => {
             view.renderTodos(state.todos);
         });
