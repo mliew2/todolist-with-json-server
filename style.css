@@ -1,9 +1,7 @@
 .app {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: fit-content;
+  width: 90vw;
   padding: 10px;
   text-align: center;
   gap: 10px;
@@ -15,44 +13,113 @@ html {
   justify-content: center;
 }
 
+button {
+  position: relative;
+  border: 1px solid gray;
+  border-radius: 3px;
+  width: fit-content;
+  color: white;
+}
+
+button:hover {
+  filter: opacity(75%);
+}
+
 .form {
   display: flex;
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-}
-
-.pending-list,
-.completed-list {
-  padding: 10px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: fit-content;
-  list-style-type: none;
-  gap: 10px;
-
-}
-
-.pending-list li,
-.completed-list li {
-  display: flex;
-  justify-content: space-between;
-}
-
-.pending-list li span,
-.completed-list li span {
-  flex-grow: 1;
-  text-align: center;
+  height: 4vh;
 }
 
 .lists-container {
   width: 100%;
   display: flex;
   flex-flow: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   gap: 10px;
+}
+
+.list-box {
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;  
+  align-items: flex-start;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  width: 35vw;
+  height: 60vh;
+}
+
+.title {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  width: 100%;
+}
+
+.todo-list li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: 3px;
+  background-color: #e6e2d3;
+}
+
+.todo-list li span {
+  flex-grow: 1;
+  text-align: center;
+  font-size: large;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.todo-list li * {
+  padding: 0;
+  margin: 2px;
+}
+
+button :not(.submit-btn) {
+  width: 2em;
+  height: 2em;
+}
+
+.complete-btn {
+  background-color: #4caf50;
+}
+
+.delete-btn {
+  background-color: #c94c4c;
+}
+
+.submit-btn,
+.edit-btn {
+  background-color: #008cba;
+}
+
+svg{
+  position: relative;
+  top: 0;
+  left: 0;
+  fill: white;
+  pointer-events: none;
+}
+
+.textbox {
+  width: 95%;
+  height: 2em;
+  border-radius: 3px;
 }
