@@ -32,16 +32,19 @@ export const View = (() => {
         inputEl.value = "";
     };
 
+    // Adds a textbox for editing when the edit button is clicked
+    // Returns true with the new string if user was editing the content
+    // Otherwise, changes the contents to a textbox with the current text content
     const triggerEdit = (id) => {
         const content = document.querySelector(`#todo-${id}`);
         if (content.classList.toggle("editing")) {
             content.innerHTML = `<input type="text" class="textbox" id="input-${id}" value="${content.innerHTML}"></input>`;
-            return [true, ""];
+            return [false, ""];
         } else {
             const textbox = document.querySelector(`#input-${id}`);
             const newContent = textbox.value;
             content.removeChild(textbox);
-            return [false, newContent];
+            return [true, newContent];
         }
     }
 
